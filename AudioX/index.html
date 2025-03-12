@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="AudioX: Diffusion Transformer for Anything-to-Audio Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AudioX: Diffusion Transformer for Anything-to-Audio Generation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/bulma-carousel.min.css"> -->
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <style>
+    .tabs {
+      display: flex;
+      /* justify-content: center; */
+      /* border-bottom: 2px solid #ddd; */
+      border-top: 2px solid #ddd;
+      float: left;
+    }
+
+    .tab {
+      padding: 10px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      float: left;
+      /* width:200px; */
+      width: 560px;
+      /* margin: 0 30px 0 0; */
+    }
+
+    .tab:hover {
+      background-color: #f0f0f0;
+    }
+
+    .tab.active {
+      border-top: 2px solid #007bff;
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+
+    .demo-video-container {
+      display: none;
+      /* padding: 20px; */
+    }
+
+    .demo-video-container.active {
+      display: block;
+    }
+    
+    .prompt-container {
+      grid-column: span 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px 0;
+    }
+
+    .text-prompt {
+      font-weight: bolder;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+    
+    .divider {
+      grid-column: span 5;
+      border-bottom: 2px solid #ccc;
+      margin: 5px 0;
+    }
+
+    iframe {
+      width: 100%;
+      /* border-radius: 8px; */
+    }
+
+    .grid-video-container {
+      display: grid;
+      grid-template-columns: repeat(5, 225px);
+      gap: 2px;
+      /* 调整间距 */
+      /* width: 80%; */
+      /* max-width: 1080px; */
+    }
+
+    .video-item {
+      text-align: center;
+    }
+
+    .video-title {
+      margin-bottom: 5px;
+      font-weight: bolder;
+    }
+
+    .divider {
+      grid-column: span 5;
+      border-bottom: 2px solid #ccc;
+      margin: 10px 0;
+    }
+
+    .collapsible {
+      background-color: #f1f1f1;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 15px;
+      width: 1120px;
+      margin: 0;
+    }
+
+    .collapsible.active {
+      background-color: #ccc;
+    }
+
+    .collapsible:hover {
+      background-color: #ccc;
+    }
+
+    .collapsible-content {
+      padding: 6px 18px;
+      display: none;
+      overflow: hidden;
+      border: 4px dotted #ccc;
+      border-top: none;
+      width: 1120px;
+      text-align: center;
+      /* background-color: #f9f9f9; */
+      /* background-color: #dad7d7; */
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- <section class="hero"> -->
+  <section class="section">
+    <!-- <div class="hero-body"> -->
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">AudioX: Diffusion Transformer for Anything-to-Audio Generation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=dghq4MQAAAAJ&hl=zh-CN&authuser=1&oi=ao
+              ">Zeyue Tian</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Yizhu Jin</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Zhaoyang Liu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=Qd_hX1cAAAAJ&hl=zh-CN">Ruibin Yuan</a><sup>1</sup>,
+            </span>
+            <br>
+
+            <span class="author-block">
+              <a href="https://tan-xu.github.io">Xu Tan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cqf.io">Qifeng Chen</a><sup>1†</sup>
+            </span>
+            <span class="author-block">
+              <a href="http://wei-xue.com">Wei Xue</a><sup>1†</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://cse.hkust.edu.hk/admin/people/faculty/profile/yikeguo">Yike Guo</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>HKUST</span>&emsp;&emsp;&emsp;
+            <span class="author-block"><sup>2</sup>Microsoft Research Asia</span>
+          </div>
+            <span class="author-block"><sup>†</sup>Corresponding authors
+            </span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2406.04321" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/ZeyueT/VidMuse" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- Demo Link. -->
+              <!-- <span class="link-block">
+                <a href="https://emu.ssi.plus"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>Demo</span>
+                  </a>
+              </span> -->
+
+              <!-- HF Demo Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/HKUSTAudio/VidMuse"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span>🤗 HF Model</span>
+                </a>
+              </span>
+
+                <!-- Demo Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://huggingface.co/Zeyue7/VidMuse"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>🤗 Dataset</span>
+                  </a>
+                </span> -->
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/HKUSTAudio/VidMuse-V2M-Dataset"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <!-- Inline SVG for a "database" (cylinder) icon -->
+                      <svg viewBox="0 0 512 512" fill="currentColor" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M448 73.14C448 32.79 347.35 0 256 0S64 32.79 64 73.14v365.72c0 40.35 100.65 73.14 192 73.14s192-32.79 192-73.14V73.14zM384 345.88c0 12.43-50.14 40.12-128 40.12s-128-27.69-128-40.12V277c35.28 20.91 84.24 31.26 128 31.26s92.72-10.35 128-31.26v68.88zm0-91.44c0 12.43-50.14 40.12-128 40.12s-128-27.69-128-40.12V185.6c35.28 20.91 84.24 31.26 128 31.26s92.72-10.35 128-31.26v69.84zM256 181.3c-77.86 0-128-27.69-128-40.12s50.14-40.12 128-40.12 128 27.69 128 40.12-50.14 40.12-128 40.12z"/>
+                      </svg>
+                    </span>
+                    <span>Dataset</span>
+                  </a>
+                </span>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- </section> -->
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Audio and music generation have emerged as crucial tasks in many applications, yet existing approaches face significant limitations: they operate in isolation without unified capabilities across modalities, suffer from scarce high-quality, multi-modal training data, and struggle to effectively integrate diverse inputs. In this work, we propose AudioX, a unified Diffusion Transformer model for Anything-to-Audio and Music Generation. Unlike previous domain-specific models, AudioX can generate both general audio and music with high quality, while offering flexible natural language control and seamless processing of various modalities including text, video, image, music, and audio. Its key innovation is a multi-modal masked training strategy that masks inputs across modalities and forces the model to learn from masked inputs, yielding robust and unified cross-modal representations. To address data scarcity, we curate two comprehensive datasets: vggsound-caps with 190K audio captions based on the VGGSound dataset, and V2M-caps with 6 million music captions derived from the V2M dataset. Extensive experiments demonstrate that AudioX not only matches or outperforms state-of-the-art specialized models, but also offers remarkable versatility in handling diverse input modalities and generation tasks within a unified architecture.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!-- Paper video. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Demo Video</h2>
+            <div class="tabs">
+              <div class="tab active" data-tab="video1">YouTube</div>
+              <div class="tab" data-tab="video2">Bilibili</div>
+            </div>
+            <div class="demo-video-container active" id="video1">
+              <iframe width="1120" height="630" src="https://www.youtube.com/embed/DbZbzcVI6qg?si=ejvPmM2pRiOx8vJ4"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="demo-video-container" id="video2">
+              <iframe width="1120" height="630"
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=112808591100967&bvid=BV15j8pexEoz&autoplay=0"
+                scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!--/ Paper video. -->
+      </div>
+
+    </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- <div class="columns"> -->
+      <!-- <div class="column is-full-width"> -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <button class="collapsible">
+              <h2 class="title is-4"> Text-to-Audio <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="grid-video-container">
+                  <!-- First row -->
+                  <div class="video-item">
+                    <div class="video-title">Ours</div>
+                    <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Caption2Musc</div>
+                    <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">CMT</div>
+                    <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">M^2UGen</div>
+                    <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Video2Music</div>
+                    <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Second row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Third row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Forth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Fifth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Sixth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+                  <!-- Text prompt row -->
+                  <div class="prompt-container">
+                    <div class="text-prompt">Your Text Prompt Here</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <button class="collapsible">
+              <h2 class="title is-4"> Text-to-Music <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="grid-video-container">
+                  <!-- First row -->
+                  <div class="video-item">
+                    <div class="video-title">Ours</div>
+                    <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Caption2Musc</div>
+                    <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">CMT</div>
+                    <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">M^2UGen</div>
+                    <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Video2Music</div>
+                    <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Second row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Third row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Forth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Fifth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Sixth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <button class="collapsible">
+              <h2 class="title is-4"> Video(+Text)-to-Audio <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="grid-video-container">
+                  <!-- First row -->
+                  <div class="video-item">
+                    <div class="video-title">Ours</div>
+                    <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Caption2Musc</div>
+                    <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">CMT</div>
+                    <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">M^2UGen</div>
+                    <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <div class="video-title">Video2Music</div>
+                    <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Second row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Third row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Forth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Fifth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                  </div>
+                  <div class="divider"></div>
+                  <!-- Sixth row -->
+                  <div class="video-item">
+                    <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+
+                  <div class="video-item">
+                    <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+
+            <button class="collapsible">
+              <h2 class="title is-4"> Video(+Text)-to-Music <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="video-item">
+                  <video src="static/videos/long_videos/Z3QKkl1WyM.mp4"
+                    poster="static/posters/long_videos/Z3QKkl1WyM.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/acCQCGhbmaY.mp4"
+                    poster="static/posters/long_videos/acCQCGhbmaY.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/aWzlQ2N6qqg.mp4"
+                    poster="static/posters/long_videos/aWzlQ2N6qqg.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/pK2zYHWDZKo.mp4"
+                    poster="static/posters/long_videos/pK2zYHWDZKo.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/uwmDH12MAA4.mp4"
+                    poster="static/posters/long_videos/uwmDH12MAA4.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/ZTttCukWDgw.mp4"
+                    poster="static/posters/long_videos/ZTttCukWDgw.png" controls></video>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <button class="collapsible">
+              <h2 class="title is-4"> Audio Inpainting <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+              <div class="collapsible-content">
+                <div class="video-container">
+                  <div class="grid-video-container">
+                    <!-- First row -->
+                    <div class="video-item">
+                      <div class="video-title">Ours</div>
+                      <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <div class="video-title">Caption2Musc</div>
+                      <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <div class="video-title">CMT</div>
+                      <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <div class="video-title">M^2UGen</div>
+                      <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <div class="video-title">Video2Music</div>
+                      <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Second row -->
+                    <div class="video-item">
+                      <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Third row -->
+                    <div class="video-item">
+                      <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Forth row -->
+                    <div class="video-item">
+                      <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Fifth row -->
+                    <div class="video-item">
+                      <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Sixth row -->
+                    <div class="video-item">
+                      <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                    </div>
+  
+                    <div class="video-item">
+                      <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <button class="collapsible">
+              <h2 class="title is-4"> Music Completion <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/dancing-kangaroo.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/film-1.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/first-2.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/first-7.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/monster-with-melting-candle.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/otter-on-surfboard.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/photoreal-train.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/sport-1.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/ai_videos/zen-garden-gnome.mp4" controls></video>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- <div class="columns"> -->
+        <!-- <div class="column is-full-width"> -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">V2M Dataset</h2>
+            <h2 class="title is-4">The Pipeline of Dataset Construction</h2>
+            <!-- <br> -->
+            <div class="columns is-centered">
+              <img src="./static/images/data_pipeline.png" class="interpolation-image" alt="comparison_fewshot."
+                width="80%" heght="80%" />
+            </div>
+
+            <div class="column is-full-width">
+              <!-- <h2 class="title is-3">Data Statistics</h2> -->
+              <h2 class="title is-4">Data Statistics</h2>
+              <!-- <br> -->
+              <div class="columns is-centered">
+                <img src="./static/images/data_statistics.png" class="interpolation-image" alt="comparison_fewshot."
+                  width="80%" heght="80%" />
+              </div>
+              <button class="collapsible">
+                <h2 class="title is-4"> Video-Music Samples in Our Dataset <br>
+                  <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+                </h2>
+              </button>
+              <div class="collapsible-content">
+                <div class="video-container">
+                  <!-- 第一行 -->
+                  <div class="video-item">
+                    <video src="static/videos/dataset/7xidOWnzSu4.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/WWEOCQGxSw.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/fsQSWu8gBUs.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/giXco2jaZ_4.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/ixDmLSMKryU.mp4" controls></video>
+                  </div>
+                  <!-- <div class="video-item">
+                    <video src="static/videos/dataset/rl33gU2APIs.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/TcMBFSGVi1c.mp4" controls></video>
+                  </div> -->
+                  <!-- <div class="video-item">
+                    <video src="static/videos/dataset/u4pfxViumkU.mp4" controls></video>
+                  </div> -->
+                  <div class="video-item">
+                    <video src="static/videos/dataset/xqXG4NaoLSE.mp4" controls></video>
+                  </div>
+                  <div class="video-item">
+                    <video src="static/videos/dataset/Z1BCujX3pw8.mp4" controls></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- <div class="columns"> -->
+        <!-- <div class="column is-full-width"> -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Method</h2>
+            <!-- <div class="columns is-centered"> -->
+            <img src="./static/images/pipeline.png" class="interpolation-image" alt="Method." height="80%"
+              width="80%" />
+            <div class="content is-centered">
+              <p>
+                The overview of our proposed VidMuse.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="container is-max-desktop">
+            <!-- <div class="columns"> -->
+            <!-- <div class="column is-full-width"> -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-full-width">
+                <h2 class="title is-3">Experiments</h2>
+                <h2 class="title is-4">Main Results</h2>
+                <!-- <div class="columns is-centered"> -->
+                <img src="./static/images/main_results.png" class="interpolation-image" alt="main_results." height="80%"
+                  width="80%" />
+              </div>
+
+            </div>
+
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-full-width">
+                <h2 class="title is-4">User Study</h2>
+
+                <div class="columns is-centered">
+                  <img src="./static/images/user_study.png" class="interpolation-image" alt="gen_metrics." height="80%"
+                    width="80%" />
+                </div>
+              </div>
+            </div>
+
+            <div align="left">
+              <!-- <p align="left"> -->
+              The evaluation criteria are four-fold:
+              1) <b>Audio quality</b>: Refers to the sound quality of the audio track; 2) <b>Video-music
+                alignment</b>: Assesses how well the music matches the visual content, e.g., a scene showing a woman
+              crying should ideally be paired with music that sounds sad; 3) <b>Musicality</b>: Measures the
+              aesthetic appeal of music, independent of audio quality, e.g., a piece of music has high audio quality
+              but is out of tune has poor musicality; 4) <b>Overall assessment</b>: A comprehensive evaluation that
+              considers all aspects of the music.
+              <!-- </p> -->
+            </div>
+
+          </div>
+      </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <p>
+          If you find our work useful, please consider citing:</p>
+        <pre><code>@article{tian2024vidmuse,
+      title={VidMuse: A Simple Video-to-Music Generation Framework with Long-Short-Term Modeling},
+      author={Tian, Zeyue and Liu, Zhaoyang and Yuan, Ruibin and Pan, Jiahao and Huang, Xiaoqiang and Liu, Qifeng and Tan, Xu and Chen, Qifeng and Xue, Wei and Guo, Yike},
+      journal={arXiv preprint arXiv:2406.04321},
+      year={2024}
+    }</code></pre>
+      </div>
+    </section>
+
+    <script>
+      const tabs = document.querySelectorAll('.tab');
+      const videoContainers = document.querySelectorAll('.demo-video-container');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('mouseover', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          videoContainers.forEach(vc => vc.classList.remove('active'));
+
+          tab.classList.add('active');
+          document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+        });
+      });
+    </script>
+
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    </script>
+
+</body>
+
+<footer>
+  <a href="https://github.com/nerfies/nerfies.github.io">template</a>
+</footer>
+
+
+</html>
