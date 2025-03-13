@@ -1,1 +1,1 @@
-# Project Page for VidMuse 
+# Project Page for AudioX 
