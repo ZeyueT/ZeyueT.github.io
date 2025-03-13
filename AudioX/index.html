@@ -7,7 +7,7 @@
     content="AudioX: Diffusion Transformer for Anything-to-Audio Generation">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>AudioX: Diffusion Transformer for Anything-to-Audio Generation</title>
+  <title>VidMuse: A Simple Video-to-Music Generation Framework with Long-Short-Term Modeling</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -74,26 +74,6 @@
 
     .demo-video-container.active {
       display: block;
-    }
-    
-    .prompt-container {
-      grid-column: span 5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0px 0;
-    }
-
-    .text-prompt {
-      font-weight: bolder;
-      text-align: center;
-      margin-bottom: 0px;
-    }
-    
-    .divider {
-      grid-column: span 5;
-      border-bottom: 2px solid #ccc;
-      margin: 5px 0;
     }
 
     iframe {
@@ -168,21 +148,26 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">AudioX: Diffusion Transformer for Anything-to-Audio Generation</h1>
+          <h1 class="title is-1 publication-title">VidMuse: A Simple Video-to-Music Generation Framework with
+            Long-Short-Term Modeling</h1>
+            <h2 class="subtitle is-4" style="color: #f11111; font-size: 2rem;">
+              Accepted to CVPR 2025
+            </h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://scholar.google.com/citations?user=dghq4MQAAAAJ&hl=zh-CN&authuser=1&oi=ao
-              ">Zeyue Tian</a><sup>1</sup>,</span>
+              ">Zeyue Tian</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                <a href="
+                ">Yizhu Jin</a><sup>1</sup>,
+              </span>              
             <span class="author-block">
-              <a href="">Yizhu Jin</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="">Zhaoyang Liu</a><sup>1</sup>,
-            </span>
+              <a href="https://scholar.google.com/citations?user=btgwZosAAAAJ&hl=en">Zhaoyang
+                Liu</a><sup>1*</sup>,</span>
             <span class="author-block">
               <a href="https://scholar.google.com/citations?user=Qd_hX1cAAAAJ&hl=zh-CN">Ruibin Yuan</a><sup>1</sup>,
             </span>
             <br>
-
             <span class="author-block">
               <a href="https://tan-xu.github.io">Xu Tan</a><sup>2</sup>,
             </span>
@@ -199,8 +184,11 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>HKUST</span>&emsp;&emsp;&emsp;
-            <span class="author-block"><sup>2</sup>Microsoft Research Asia</span>
+            <span class="author-block"><sup>2</sup>Moonshot AI</span>
           </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
             <span class="author-block"><sup>†</sup>Corresponding authors
             </span>
           </div>
@@ -280,7 +268,8 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified">
               <p>
-                Audio and music generation have emerged as crucial tasks in many applications, yet existing approaches face significant limitations: they operate in isolation without unified capabilities across modalities, suffer from scarce high-quality, multi-modal training data, and struggle to effectively integrate diverse inputs. In this work, we propose AudioX, a unified Diffusion Transformer model for Anything-to-Audio and Music Generation. Unlike previous domain-specific models, AudioX can generate both general audio and music with high quality, while offering flexible natural language control and seamless processing of various modalities including text, video, image, music, and audio. Its key innovation is a multi-modal masked training strategy that masks inputs across modalities and forces the model to learn from masked inputs, yielding robust and unified cross-modal representations. To address data scarcity, we curate two comprehensive datasets: vggsound-caps with 190K audio captions based on the VGGSound dataset, and V2M-caps with 6 million music captions derived from the V2M dataset. Extensive experiments demonstrate that AudioX not only matches or outperforms state-of-the-art specialized models, but also offers remarkable versatility in handling diverse input modalities and generation tasks within a unified architecture.
+                Audio and music generation have emerged as crucial tasks in many applications, yet existing approaches face significant limitations: they operate in isolation without unified capabilities across modalities, suffer from scarce high-quality, multi-modal training data, and struggle to effectively integrate diverse inputs. In this work, we propose AudioX, a unified Diffusion Transformer model for Anything-to-Audio and Music Generation. Unlike previous domain-specific models, AudioX can generate both general audio and music with high quality, while offering flexible natural language control and seamless processing of various modalities including text, video, image, music, and audio. Its key innovation is a multi-modal masked training strategy that masks inputs across modalities and forces the model to learn from masked inputs, yielding robust and unified cross-modal representations. To address data scarcity, we curate two comprehensive datasets: vggsound-caps with 190K audio captions based on the VGGSound dataset, and V2M-caps with 6 million music captions derived from the V2M dataset. Extensive experiments demonstrate that AudioX not only matches or outperforms state-of-the-art specialized models, but also offers remarkable versatility in handling diverse input modalities and generation tasks within a unified architecture.. The code and datasets will be available at <a
+                  href="https://github.com/ZeyueT/AudioX/">https://github.com/ZeyueT/AudioX/</a>
               </p>
             </div>
           </div>
@@ -318,179 +307,14 @@
     <div class="container is-max-desktop">
       <!-- <div class="columns"> -->
       <!-- <div class="column is-full-width"> -->
-        <div class="columns is-centered has-text-centered">
+<div class="columns is-centered has-text-centered">
           <div class="column is-full-width">
+            <h2 class="title is-3">Video-to-Music Generation</h2>
+            <!-- <h2 class="title is-4">Comparisions with SoTA</h2> -->
+            <!-- <div class="columns is-centered has-text-centered">
+              <div class="column is-full-width"> -->
             <button class="collapsible">
-              <h2 class="title is-4"> Text-to-Audio <br>
-                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
-              </h2>
-            </button>
-            <div class="collapsible-content">
-              <div class="video-container">
-                <div class="grid-video-container">
-                  <!-- First row -->
-                  <div class="video-item">
-                    <div class="video-title">Ours</div>
-                    <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">Caption2Musc</div>
-                    <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">CMT</div>
-                    <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">M^2UGen</div>
-                    <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">Video2Music</div>
-                    <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Second row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Third row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Forth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Fifth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Sixth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-                  <!-- Text prompt row -->
-                  <div class="prompt-container">
-                    <div class="text-prompt">Your Text Prompt Here</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-full-width">
-            <button class="collapsible">
-              <h2 class="title is-4"> Text-to-Music <br>
+              <h2 class="title is-4"> Comparisions with SoTA <br>
                 <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
               </h2>
             </button>
@@ -632,148 +456,42 @@
             </div>
           </div>
         </div>
-
         <div class="columns is-centered has-text-centered">
           <div class="column is-full-width">
             <button class="collapsible">
-              <h2 class="title is-4"> Video(+Text)-to-Audio <br>
+              <h2 class="title is-4"> More samples Generated by Our VidMuse <br>
                 <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
               </h2>
             </button>
             <div class="collapsible-content">
               <div class="video-container">
-                <div class="grid-video-container">
-                  <!-- First row -->
-                  <div class="video-item">
-                    <div class="video-title">Ours</div>
-                    <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">Caption2Musc</div>
-                    <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">CMT</div>
-                    <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">M^2UGen</div>
-                    <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <div class="video-title">Video2Music</div>
-                    <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Second row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Third row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Forth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Fifth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                  </div>
-                  <div class="divider"></div>
-                  <!-- Sixth row -->
-                  <div class="video-item">
-                    <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
-
-                  <div class="video-item">
-                    <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                  </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/qH4Cge_ED-4.mp4" controls></video>
                 </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/bg7iZOGQT3s.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/DAzVQic_3Kc.mp4" controls></video>
+                </div>
+                <!-- <div class="video-item">
+                <video src="static/videos/diversity/dzOqyG73KuE.mp4" controls></video>
+              </div> -->
+                <div class="video-item">
+                  <video src="static/videos/diversity/f7VvrVBXtfc.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/MCJp8-MebGY_noaudio_0-16s.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/ngO6Mnmzc8A_0-30s.mp4" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/diversity/oMu-E3knVHU_noaudio_48-64s.mp4" controls></video>
+                </div>
+                <!-- <div class="video-item">
+                  <video src="static/videos/diversity/Y_DxUmvLTzI.mp4" controls></video>
+                </div> -->
               </div>
             </div>
           </div>
@@ -781,193 +499,8 @@
 
         <div class="columns is-centered has-text-centered">
           <div class="column is-full-width">
-
             <button class="collapsible">
-              <h2 class="title is-4"> Video(+Text)-to-Music <br>
-                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
-              </h2>
-            </button>
-            <div class="collapsible-content">
-              <div class="video-container">
-                <div class="video-item">
-                  <video src="static/videos/long_videos/Z3QKkl1WyM.mp4"
-                    poster="static/posters/long_videos/Z3QKkl1WyM.png" controls></video>
-                </div>
-                <div class="video-item">
-                  <video src="static/videos/long_videos/acCQCGhbmaY.mp4"
-                    poster="static/posters/long_videos/acCQCGhbmaY.png" controls></video>
-                </div>
-                <div class="video-item">
-                  <video src="static/videos/long_videos/aWzlQ2N6qqg.mp4"
-                    poster="static/posters/long_videos/aWzlQ2N6qqg.png" controls></video>
-                </div>
-                <div class="video-item">
-                  <video src="static/videos/long_videos/pK2zYHWDZKo.mp4"
-                    poster="static/posters/long_videos/pK2zYHWDZKo.png" controls></video>
-                </div>
-                <div class="video-item">
-                  <video src="static/videos/long_videos/uwmDH12MAA4.mp4"
-                    poster="static/posters/long_videos/uwmDH12MAA4.png" controls></video>
-                </div>
-                <div class="video-item">
-                  <video src="static/videos/long_videos/ZTttCukWDgw.mp4"
-                    poster="static/posters/long_videos/ZTttCukWDgw.png" controls></video>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-full-width">
-            <button class="collapsible">
-              <h2 class="title is-4"> Audio Inpainting <br>
-                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
-              </h2>
-              <div class="collapsible-content">
-                <div class="video-container">
-                  <div class="grid-video-container">
-                    <!-- First row -->
-                    <div class="video-item">
-                      <div class="video-title">Ours</div>
-                      <video src="static/videos/ours/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <div class="video-title">Caption2Musc</div>
-                      <video src="static/videos/caption2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <div class="video-title">CMT</div>
-                      <video src="static/videos/cmt/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <div class="video-title">M^2UGen</div>
-                      <video src="static/videos/m2ugen/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <div class="video-title">Video2Music</div>
-                      <video src="static/videos/video2music/gzUa2lcws0A.mp4" poster="static/posters/comparison/gzUa2lcws0A.png" controls=""></video>
-                    </div>
-                    <div class="divider"></div>
-                    <!-- Second row -->
-                    <div class="video-item">
-                      <video src="static/videos/ours/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/caption2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/cmt/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/m2ugen/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/video2music/Z27q8P76LfI.mp4" poster="static/posters/comparison/Z27q8P76LfI.png" controls=""></video>
-                    </div>
-                    <div class="divider"></div>
-                    <!-- Third row -->
-                    <div class="video-item">
-                      <video src="static/videos/ours/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/caption2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/cmt/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/m2ugen/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/video2music/35npVaFGHMY.mp4" poster="static/posters/comparison/35npVaFGHMY.png" controls=""></video>
-                    </div>
-                    <div class="divider"></div>
-                    <!-- Forth row -->
-                    <div class="video-item">
-                      <video src="static/videos/ours/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/caption2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/cmt/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/m2ugen/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/video2music/du1zyS5f4QU.mp4" poster="static/posters/comparison/du1zyS5f4QU.png" controls=""></video>
-                    </div>
-                    <div class="divider"></div>
-                    <!-- Fifth row -->
-                    <div class="video-item">
-                      <video src="static/videos/ours/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/caption2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/cmt/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/m2ugen/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/video2music/nUJItb9Yfcw.mp4" poster="static/posters/comparison/nUJItb9Yfcw.png" controls=""></video>
-                    </div>
-                    <div class="divider"></div>
-                    <!-- Sixth row -->
-                    <div class="video-item">
-                      <video src="static/videos/ours/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/caption2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/cmt/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/m2ugen/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                    </div>
-  
-                    <div class="video-item">
-                      <video src="static/videos/video2music/gncn-nVKyC0.mp4" poster="static/posters/comparison/gncn-nVKyC0.png" controls=""></video>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-full-width">
-            <button class="collapsible">
-              <h2 class="title is-4"> Music Completion <br>
+              <h2 class="title is-4"> Music Generation for AI-generated Videos <br>
                 <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
               </h2>
             </button>
@@ -1006,6 +539,45 @@
           </div>
         </div>
 
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+
+            <button class="collapsible">
+              <h2 class="title is-4"> Music Generation for Long Videos <br>
+                <span style="color: #f11111; font-size: 20px;">Click here to see details</span>
+              </h2>
+            </button>
+            <div class="collapsible-content">
+              <div class="video-container">
+                <div class="video-item">
+                  <video src="static/videos/long_videos/Z3QKkl1WyM.mp4"
+                    poster="static/posters/long_videos/Z3QKkl1WyM.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/acCQCGhbmaY.mp4"
+                    poster="static/posters/long_videos/acCQCGhbmaY.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/aWzlQ2N6qqg.mp4"
+                    poster="static/posters/long_videos/aWzlQ2N6qqg.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/pK2zYHWDZKo.mp4"
+                    poster="static/posters/long_videos/pK2zYHWDZKo.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/uwmDH12MAA4.mp4"
+                    poster="static/posters/long_videos/uwmDH12MAA4.png" controls></video>
+                </div>
+                <div class="video-item">
+                  <video src="static/videos/long_videos/ZTttCukWDgw.mp4"
+                    poster="static/posters/long_videos/ZTttCukWDgw.png" controls></video>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1139,7 +711,7 @@
       </div>
     </section>
 
-    <section class="section" id="BibTeX">
+    <!-- <section class="section" id="BibTeX">
       <div class="container is-max-desktop content">
         <h2 class="title">BibTeX</h2>
         <p>
@@ -1151,7 +723,7 @@
       year={2024}
     }</code></pre>
       </div>
-    </section>
+    </section> -->
 
     <script>
       const tabs = document.querySelectorAll('.tab');
