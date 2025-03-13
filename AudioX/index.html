@@ -220,7 +220,7 @@
 
               <!-- HF Demo Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/HKUSTAudio/VidMuse"
+                <a href="https://huggingface.co/AudioX"
                   class="external-link button is-normal is-rounded is-dark">
                   <span>🤗 HF Model</span>
                 </a>
@@ -235,7 +235,7 @@
                 </span> -->
 
                 <span class="link-block">
-                  <a href="https://huggingface.co/datasets/HKUSTAudio/VidMuse-V2M-Dataset"
+                  <a href="https://huggingface.co/AudioX"
                      class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <!-- Inline SVG for a "database" (cylinder) icon -->
@@ -276,21 +276,11 @@
         <div class="columns is-centered has-text-centered">
           <div class="column is-full-width">
             <h2 class="title is-3">Demo Video</h2>
-            <div class="tabs">
-              <div class="tab active" data-tab="video1">YouTube</div>
-              <div class="tab" data-tab="video2">Bilibili</div>
+            
+            <div class="video-item">
+              <video src="AudioX_DEMO_compressed.mov" poster="" controls=""></video>
             </div>
-            <div class="demo-video-container active" id="video1">
-              <iframe width="1120" height="630" src="https://www.youtube.com/embed/DbZbzcVI6qg?si=ejvPmM2pRiOx8vJ4"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="demo-video-container" id="video2">
-              <iframe width="1120" height="630"
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=112808591100967&bvid=BV15j8pexEoz&autoplay=0"
-                scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-            </div>
+
           </div>
         </div>
 
@@ -331,67 +321,7 @@
         </div>
       </div>
     </section>
-    <section class="section">
-      <div class="container is-max-desktop">
-        <!-- <div class="columns"> -->
-        <!-- <div class="column is-full-width"> -->
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-full-width">
-            <h2 class="title is-3">Method</h2>
-            <!-- <div class="columns is-centered"> -->
-            <img src="./static/images/pipeline.png" class="interpolation-image" alt="Method." height="80%"
-              width="80%" />
-            <div class="content is-centered">
-              <p>
-                The overview of our proposed VidMuse.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <section class="section">
-          <div class="container is-max-desktop">
-            <!-- <div class="columns"> -->
-            <!-- <div class="column is-full-width"> -->
-            <div class="columns is-centered has-text-centered">
-              <div class="column is-full-width">
-                <h2 class="title is-3">Experiments</h2>
-                <h2 class="title is-4">Main Results</h2>
-                <!-- <div class="columns is-centered"> -->
-                <img src="./static/images/main_results.png" class="interpolation-image" alt="main_results." height="80%"
-                  width="80%" />
-              </div>
-
-            </div>
-
-            <div class="columns is-centered has-text-centered">
-              <div class="column is-full-width">
-                <h2 class="title is-4">User Study</h2>
-
-                <div class="columns is-centered">
-                  <img src="./static/images/user_study.png" class="interpolation-image" alt="gen_metrics." height="80%"
-                    width="80%" />
-                </div>
-              </div>
-            </div>
-
-            <div align="left">
-              <!-- <p align="left"> -->
-              The evaluation criteria are four-fold:
-              1) <b>Audio quality</b>: Refers to the sound quality of the audio track; 2) <b>Video-music
-                alignment</b>: Assesses how well the music matches the visual content, e.g., a scene showing a woman
-              crying should ideally be paired with music that sounds sad; 3) <b>Musicality</b>: Measures the
-              aesthetic appeal of music, independent of audio quality, e.g., a piece of music has high audio quality
-              but is out of tune has poor musicality; 4) <b>Overall assessment</b>: A comprehensive evaluation that
-              considers all aspects of the music.
-              <!-- </p> -->
-            </div>
-
-          </div>
-      </div>
-
-      </div>
-    </section>
 
     <!-- <section class="section" id="BibTeX">
       <div class="container is-max-desktop content">
