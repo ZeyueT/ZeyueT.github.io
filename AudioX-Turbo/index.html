@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="AudioX-Turbo: A Unified Framework for Efficient Anything-to-Audio Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <title>AudioX-Turbo: A Unified Framework for Efficient Anything-to-Audio Generation</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    h1.publication-title {
+      font-size: 2.65rem;
+    }
+
+    .publication-authors .author-plain {
+      color: hsl(204, 86%, 53%) !important;
+    }
+
+    .affiliation-block {
+      margin-top: 0.75rem;
+      line-height: 1.75;
+    }
+
+    .affiliation-row {
+      display: block;
+      margin: 0.15rem 0;
+    }
+
+    .author-footnote {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    .hero-links {
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            AudioX-Turbo:<br>
+            A Unified Framework for Efficient Anything-to-Audio Generation
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=dghq4MQAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Zeyue Tian</a><sup>*1,3</sup>,
+            </span>
+            <span class="author-block">
+              <span class="author-plain">Lei Ke</span><sup>*1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=btgwZosAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Zhaoyang Liu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=Qd_hX1cAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Ruibin Yuan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=KNqxVT0AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Liumeng Xue</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/iigroup-thu/about" target="_blank" rel="noopener noreferrer">Yujiu Yang</a><sup>2</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <span class="author-plain">Weijia Chen</span><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://tan-xu.github.io" target="_blank" rel="noopener noreferrer">Xu Tan</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cqf.io" target="_blank" rel="noopener noreferrer">Qifeng Chen</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://wei-xue.com" target="_blank" rel="noopener noreferrer">Wei Xue</a><sup>&dagger;1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cse.hkust.edu.hk/admin/people/faculty/profile/yikeguo" target="_blank" rel="noopener noreferrer">Yike Guo</a><sup>&dagger;1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors affiliation-block">
+            <span class="affiliation-row">
+              <span class="author-block"><sup>1</sup>The Hong Kong University of Science and Technology</span>&emsp;
+              <span class="author-block"><sup>2</sup>Tsinghua University</span>
+            </span>
+            <span class="affiliation-row">
+              <span class="author-block"><sup>3</sup>Noiz AI</span>&emsp;
+              <span class="author-block"><sup>4</sup>Independent Researcher</span>
+            </span>
+          </div>
+
+          <div class="author-footnote">
+            <sup>*</sup>Equal contribution.&emsp;
+            <sup>&dagger;</sup>Corresponding authors.
+          </div>
+
+          <div class="hero-links publication-links">
+            <span class="link-block">
+              <a href="https://zeyuet.github.io/AudioX/" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-link"></i></span>
+                <span>AudioX</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/2606.12555" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/NoizAI/AudioX-Turbo" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/collections/HKUSTAudio/audiox-turbo" target="_blank" rel="noopener noreferrer"
+                class="external-link button is-normal is-rounded is-dark">
+                <span>🤗 Model</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/datasets/HKUSTAudio/AudioX-IFcaps-Pro" target="_blank" rel="noopener noreferrer"
+                class="external-link button is-normal is-rounded is-dark">
+                <span>🤗 Dataset</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/ZeyueT/T2A-bench" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                <span>🎯 T2A-bench</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Audio and music generation based on flexible multimodal control signals is a widely applicable topic, with the following key challenges: 1) a unified multimodal modeling framework, 2) large-scale, high-quality training data, and 3) the prohibitive inference cost of multi-step diffusion sampling.
+              As such, we propose <strong>AudioX-Turbo</strong>, a unified and efficient framework for anything-to-audio generation that integrates varied multimodal conditions (i.e., text, video, and audio signals).
+              AudioX-Turbo follows a <em>teacher&ndash;student</em> paradigm. The teacher <strong>AudioX-Base</strong> is built on a Multimodal Diffusion Transformer with a Multimodal Adaptive Fusion module that aligns diverse multimodal inputs for high-fidelity synthesis, and is then distilled into the few-step student <strong>AudioX-Turbo</strong> via Distribution Matching Distillation adapted to flow matching, complemented by a diffusion-based discriminator for high-quality few-step generation.
+              To support training, we construct a large-scale, high-quality dataset, <strong>IF-caps-Pro</strong>, comprising approximately 9.2M samples curated through a two-stage data collection and annotation pipeline.
+              We benchmark AudioX-Turbo across a wide range of tasks, finding that our model achieves superior performance, especially on text-to-audio and text-to-music generation, while operating at only <strong>4 sampling steps</strong> and requiring up to ~25&times; fewer function evaluations (NFE) than multi-step baselines.
+              These results demonstrate that our method is capable of audio generation under flexible multimodal control, showing efficient and powerful instruction-following capabilities.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: uncomment when demo video is ready
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Demo Video</h2>
+          <div class="placeholder-box">
+            <p><i class="fas fa-video" style="font-size: 2rem; margin-bottom: 12px;"></i></p>
+            <p>Demo video coming soon.</p>
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- TODO: uncomment when samples are ready
+  <div style="text-align: center; margin: 20px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+    <h3 style="margin-bottom: 20px; color: #000093;">Quick Navigation</h3>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+      <a href="#Text-to-Audio" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Text-to-Audio</a>
+      <a href="#Text-to-Music" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Text-to-Music</a>
+      <a href="#Video-to-Audio" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Video-to-Audio</a>
+      <a href="#Video-to-Music" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Video-to-Music</a>
+      <a href="#Audio-Inpainting" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Audio Inpainting</a>
+      <a href="#Music-Completion" style="display: inline-block; padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 13px;">Music Completion</a>
+      <a href="#Comparison" style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; font-weight: bold;">Comparison</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="task-section">
+        <h2 id="Text-to-Audio" class="title is-4">Text-to-Audio Generation</h2>
+        <div class="placeholder-box">Audio samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Text-to-Music" class="title is-4">Text-to-Music Generation</h2>
+        <div class="placeholder-box">Audio samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Video-to-Audio" class="title is-4">Video-to-Audio Generation</h2>
+        <div class="placeholder-box">Audio and video samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Video-to-Music" class="title is-4">Video-to-Music Generation</h2>
+        <div class="placeholder-box">Audio and video samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Audio-Inpainting" class="title is-4">Audio Inpainting</h2>
+        <div class="placeholder-box">Audio samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Music-Completion" class="title is-4">Music Completion</h2>
+        <div class="placeholder-box">Audio samples coming soon.</div>
+      </div>
+
+      <div class="task-section">
+        <h2 id="Comparison" class="title is-3">Comparison</h2>
+        <div class="placeholder-box">Comparison samples coming soon.</div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Teaser</h2>
+          <img src="./static/images/teaser.png" class="interpolation-image" alt="Teaser." height="100%" width="100%" />
+          <div class="content" style="text-align: left; margin-top: 10px;">
+            <p>
+              <strong>Performance comparison of AudioX-Turbo against baselines.</strong>
+              (a) Comprehensive comparison across multiple benchmarks via Inception Score.
+              (b) Results on instruction-following benchmarks.
+              (c) Quality&ndash;efficiency trade-off across diffusion-based methods.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+          <img src="./static/images/method.png" class="interpolation-image" alt="Method." height="100%" width="100%" />
+          <div class="content is-centered">
+            <p>
+              The AudioX-Turbo framework: a flow-matching teacher (<strong>AudioX-Base</strong>) is distilled into a few-step student (<strong>AudioX-Turbo</strong>) via Distribution Matching Distillation.
+            </p>
+          </div>
+
+          <h3 class="title is-4" style="margin-top: 2rem;">Distillation Framework</h3>
+          <img src="./static/images/distillation_framework.png" class="interpolation-image" alt="Distillation framework." height="100%" width="100%" />
+          <div class="content" style="text-align: left; margin-top: 10px;">
+            <p>
+              <strong>The AudioX-Turbo acceleration framework.</strong>
+              The student model is rolled out for <em>k</em>&minus;1 steps to obtain an intermediate latent state, and a final one-step prediction produces the estimated clean target, which corresponds to the fake audio branch.
+              Real and fake latents are diffused to matched noise levels and supervised by three complementary objectives: a flow-matching DMD loss between the frozen teacher and the auxiliary fake model, a diffusion loss for updating the fake model on the student's generated distribution, and an adversarial GAN loss from the diffusion-based discriminator.
+              Gradients are stopped through the rollout history and the frozen teacher branch.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <p>If you find our work useful, please consider citing:</p>
+      <pre><code>@article{tian2026audioxturbo,
+  title={AudioX-Turbo: A Unified Framework for Efficient Anything-to-Audio Generation},
+  author={Tian, Zeyue and Ke, Lei and Liu, Zhaoyang and Yuan, Ruibin and Xue, Liumeng and Yang, Yujiu and Chen, Weijia and Tan, Xu and Chen, Qifeng and Xue, Wei and Guo, Yike},
+  journal={arXiv preprint arXiv:2606.12555},
+  year={2026}
+}</code></pre>
+    </div>
+  </section>
+
+</body>
+
+<footer>
+  <a href="https://github.com/nerfies/nerfies.github.io">template</a>
+</footer>
+
+</html>
